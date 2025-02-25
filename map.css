@@ -75,3 +75,44 @@ em {
     font-style: italic;
     margin-top: 2px;
 }
+
+/* Style for the legend container */
+.legend {
+    display: flex;
+    justify-content: space-between; /* Distribute space evenly between items */
+    width: 100%; /* Make the legend container fill the entire width */
+    margin-block: 20px; /* Add margin for spacing between map and legend */
+    padding: 10px 0; /* Add padding to the top and bottom */
+  }
+  
+  /* Style for each legend item */
+  .legend div {
+    flex: 1; /* Make each div take up equal space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Define color variables for departure and arrival traffic */
+  :root {
+    --color-departures: #1f77b4; /* Blue color for more departures */
+    --color-arrivals: #ff7f0e;   /* Orange color for more arrivals */
+  }
+  
+  /* Assign colors to each section */
+  .legend > div:nth-child(1) {
+    background-color: var(--color-departures); /* More departures */
+  }
+  
+  .legend > div:nth-child(2) {
+    background-color: #dcb9e0; /* Purple color for balanced */
+  }
+  
+  .legend > div:nth-child(3) {
+    background-color: var(--color-arrivals); /* More arrivals */
+  }
+  
