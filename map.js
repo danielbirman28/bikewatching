@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let stations = stationData.data.stations;
         let trips = tripData;
+        let stationFlow = d3.scaleQuantize().domain([0, 1]).range([0, 0.5, 1]);
 
         stations = computeStationTraffic(stations, trips);  // Initial computation
 
@@ -111,7 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .enter()
             .append('circle')
             .attr('class', 'station-circle')
-            .attr('r', (d) => radiusScale(d.totalTraffic));
+            .attr('r', (d) => radiusScale(d.totalTraffic))
+            .style("--departure-ratio", d => stationFlow(d.departures / d.totalTraffic));
 
         function getCoords(station) {
             const point = new mapboxgl.LngLat(+station.lon, +station.lat);
@@ -226,7 +228,10 @@ document.addEventListener('DOMContentLoaded', () => {
             circles
                 .data(filteredStations, (d) => d.short_name)
                 .join('circle')
-                .attr('r', (d) => radiusScale(d.totalTraffic));
+                .attr('r', (d) => radiusScale(d.totalTraffic))
+                .style('--departure-ratio', (d) =>
+                    stationFlow(d.departures / d.totalTraffic),
+                  );
         }
 
         function updateTimeDisplay() {
